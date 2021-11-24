@@ -38,18 +38,12 @@ main()
 		switch(op)
 		{
 			case 1:
-				printf("\tModulo Espacios\n");
-				printf("\t==============\n\n");
 				Espacios();
 				break;
 			case 2:
-				printf("\tModulo Recepcion\n");
-				printf("\t==============\n\n");
 				Recepcion();
 				break;
 			case 3:
-				printf("\tModulo Admnistracion\n");
-				printf("\t==============\n\n");
 				Administracion();
 				break;
 			case 4:
