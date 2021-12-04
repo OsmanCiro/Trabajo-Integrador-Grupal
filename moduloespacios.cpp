@@ -61,6 +61,7 @@ main()
 				}
 				break;
 			case 4:
+				printf("\n\n");
 				printf("\t****************************************\n");
 				printf("\t* Gracias por utilizar nuestro sistema *\n");
 				printf("\t****************************************\n");
@@ -71,6 +72,7 @@ main()
 		getch();
 	}
 	while (op!=4);
+	system("cls");
 }
 
 int IniciarSesion(Usuarios us)
