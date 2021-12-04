@@ -1,4 +1,6 @@
-void Espacios()
+int IniciarSesion(Usuarios us);
+void Listado(Clientes cli, Turnos tur);
+void Espacios(FILE *arch1, FILE *arch2, FILE *arch3, Usuarios us, Clientes cli, Turnos tur)
 {
 	int op,x;
 	do
@@ -18,18 +20,18 @@ void Espacios()
 			case 1:
 				printf("\tInicio de Secion\n");
 				printf("\t==================\n\n");
-				x=IniciarSesion();
+				x=IniciarSesion(us);
 				break;
 			case 2:
 				printf("\tLista de Espara (informe)\n");
 				printf("\t===========================\n\n");
 				if(x==1)
 				{
-				//	Lista();
+					Listado(cli,tur);
 				}
 				else
 				{
-					printf("Debe iniciar sesion");
+					printf("\n\n\t**DEBE INICIAR SESION**");
 				}
 				break;
 			case 3:
@@ -37,11 +39,11 @@ void Espacios()
 				printf("\t=========================\n\n");
 				if(x==1)
 				{
-				//	Tratamiento();
+					Tratamiento(cli,tur);
 				}
 				else
 				{
-					printf("Debe iniciar sesion");
+					printf("\n\n\t**DEBE INICIAR SESION**");
 				}
 				break;
 			case 4:
@@ -56,50 +58,174 @@ void Espacios()
 	}
 	while (op!=4);
 }
-int IniciarSesion()
+int IniciarSesion(Usuarios us)
 {
-	int ban=0,u=0,c=0;
-	char user[10], cont[10];
 	FILE *arch;
+	int ban=0,u=0,c=0,a=0;
+	char user[10], cont[10];
+	
 	arch=fopen("Profesionales.dat","rb");
 	
-	if(arch==NULL)
+	printf("Usuario: ");
+	_flushall();
+	gets(user);
+	fread(&us,sizeof(Usuarios),1,arch);
+	while(!feof(arch) && ban==0)
 	{
-		printf("Debe solicitar en administracion un ususario y una contraseña");
+		if(strcmp(user,us.Usua)==0)
+		{
+			u=1;
+			printf("Contraseña: ");
+			_flushall();
+			gets(cont);
+			if(strcmp(cont,us.Cont)==0)
+			{
+				c=1;
+				ban=1;
+			}
+		}
+		fread(&us,sizeof(Usuarios),1,arch);
+	}
+	if(ban==0)
+	{
+		printf("\n\nDebe solicitar en administracion un ususario y una contraseña");
 	}
 	else
 	{
-		printf("Usuario: ");
-		_flushall();
-		gets(user);
-		fread(&reg,sizeof(Registro),1,arch);
-		while(!feof(arch) && ban==0)
+		if(u==0)
 		{
-			if(strcmp(user,reg.user)==0)
+			printf("\n\nUsuario incorrecto");
+		}
+		else
+		{
+			if(c==0)
 			{
-				u=1;
-				printf("Contraseña: ");
-				_flushall();
-				gets(cont);
-				if(strcmp(cont,reg.cont)==0)
-				{
-					ban=1;
-					c=1;
-				}
+				printf("\n\nContraseña incorrecta");
 			}
 		}
 	}
-	if(u==0)
-	{
-		printf("Usuario incorrecto");
-	}
-	if(c==0)
-	{
-		printf("Contraseña incorrecta");
-	}
+	fclose(arch);
 	getch();
 	return ban;
 }
+
+void Listado(Clientes cli, Turnos tur)
+{
+	FILE *arch2, *arch3;
+	int d,m,a,ed;
+	
+	arch2=fopen("Clientes.dat","rb");
+	arch3=fopen("Turnos.dat","rb");
+	
+	printf("Ingrese la fecha\n\n");
+	printf("Dia: ");
+	scanf("%d",&d);
+	printf("Mes: ");
+	scanf("%d",&m);
+	printf("Anio: ");
+	scanf("%d",&a);
+	system("cls");
+	fread(&tur,sizeof(Turnos),1,arch3);
+	while(!feof(arch3))
+	{
+		if(d==tur.Fec.dd && m==tur.Fec.mm && a==tur.Fec.aa)
+		{
+			fread(&cli,sizeof(Clientes),1,arch2)
+			while(!feof(arch2))
+			{
+				if(tur.DNICliente==cli.DNICliente)
+				{
+					printf("Apellido y nombre: %s",cli.ApeNom);
+					printf("\nD.N.I: %d",cli.DNICliente);
+					printf("\nDomicilio: %s - %s",cli.Dom,cli.Loc);
+					ed=a-tur.Fec.aa;
+					printf("\nEdad: %d",ed);
+					printf("\nPeso: %.2f",cli.Peso);
+					printf("\nDetalle: %s\n\\n",tur.Detalle);
+				}
+				fread(&cli,sizeof(Clientes),1,arch2);
+			}
+		}
+		fread(&tur,sizeof(Turnos),1,arch3);
+	}
+	fclose(arch2);
+	fclose(arch3);
+}
+void Tratamiento(Clientes cli, Turnos tur)
+{
+	FILE *arch2, *arch3, *aux;
+	char NomCli[60], NomProf[60];
+	int d,m,a,dni,ban=0;
+	
+	arch2=fopen("Clientes,dat","r+b")
+	printf("Apellido y nombre del cliente: ");
+	_flushall();
+	gets(nom);
+	fread(&cli,sizeof(Clientes),1,arch2);
+	while(!feof(arch2) && ban==0)
+	{
+		if(strcmp(NomCli,cli.ApeNom)==0)
+		{
+			ban=1;
+			dni=cli.DNICliente;
+			printf("Fecha\n");
+			printf("Dia: ");
+			scanf("%d",&d);
+			printf("\nMes: ");
+			scanf("%d",&m);
+			printf("\Anio: ");
+			scanf("%d",&a);
+			printf("\n\nNombre del Profesinal: ");
+			_flushall();
+			gets(NomProf);
+			printf("\nTratamiento: ");
+			_flushall();
+			gets(cli.Trat);
+			fseek(arch2,-sizeof(Clientes),SEEK_CUR);
+			fwrite(&cli,sizeof(Clientes),1,arch2);
+		}
+		fread(&cli,sizeof(Clientes),1,arch2);
+	}
+	if(ban==0)
+	{
+		printf("\n\nEl cliente no existe");
+		fclose(arch2);
+		return;
+	}
+	arch3=fopen("Turnos.dat","r+b");
+	aux=fopen("auxiliar.dat","w+b");
+	fread(&tur,sizeof(Turnos),1,arch3);
+	while(!feof(arch3))
+	{
+		if(dni!=tur.DNICliente)
+		{
+			fwrite(&tur,sizeof(Turnos),1,aux);
+		}
+		fread(&tur,sizeof(Turnos),1,arch3);
+	}
+	fclose(arch3);
+	fclose(aux);
+	remove("Turnos.dat");
+	rename("auxiliar.dat","Turnos.dat");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
