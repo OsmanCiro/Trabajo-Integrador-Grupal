@@ -4,12 +4,16 @@
 #include <string.h>
 #include "estructuras.h"
 #include "moduloespacios.h"
-#include "modulorecepcionista.h"
-#include "moduloadministracion.h"
+//#include "modulorecepcionista.h"
+//#include "moduloadministracion.h"
 
 main()
 {
 	int op;
+	Usuarios us;
+	Profesionales prof;
+	Clientes cli;
+	Turnos tur;
 	FILE *arch,*arch1,*arch2,*arch3;
 	
 	arch=fopen("Recepcionista.dat","a+b");
@@ -36,13 +40,13 @@ main()
 		switch(op)
 		{
 			case 1:
-				Espacios();
+				Espacios(arch1,arch1,arch3,us,cli,tur);
 				break;
 			case 2:
-				Recepcion();
+			//	Recepcion();
 				break;
 			case 3:
-				Administracion();
+			//	Administracion();
 				break;
 			case 4:
 				printf("\t****************************************\n");
