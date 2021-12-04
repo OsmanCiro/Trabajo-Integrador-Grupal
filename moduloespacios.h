@@ -98,7 +98,6 @@ int IniciarSesion()
 		printf("Contraseña incorrecta");
 	}
 	getch();
-	fclose(arch);
 	return ban;
 }
 
