@@ -25,7 +25,7 @@ void Espacios()
 				printf("\t===========================\n\n");
 				if(x==1)
 				{
-					Lista();
+				//	Lista();
 				}
 				else
 				{
@@ -37,7 +37,7 @@ void Espacios()
 				printf("\t=========================\n\n");
 				if(x==1)
 				{
-					Tratamiento();
+				//	Tratamiento();
 				}
 				else
 				{
@@ -56,7 +56,7 @@ void Espacios()
 	}
 	while (op!=4);
 }
-int IniciarSecion()
+int IniciarSesion()
 {
 	int ban=0,u=0,c=0;
 	char user[10], cont[10];

@@ -11,7 +11,7 @@ main()
 {
 	int op;
 	FILE *arch,*arch1,*arch2,*arch3;
-	//Datos de cuentas de usuario
+	
 	arch=fopen("Recepcionista.dat","a+b");
 	arch1=fopen("Profesionales.dat","a+b");
 	arch2=fopen("Clientes.dat","a+b");
