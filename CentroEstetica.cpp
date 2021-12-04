@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
-#include "estructuras.h"
 #include "moduloespacios.h"
 #include "modulorecepcionista.h"
 #include "moduloadministracion.h"
