@@ -18,9 +18,4 @@ struct Cliente
 	Fecha FecNac;
 	float Peso;
 };
-struct Turnos
-{
-	int IDProf, DNICliente;
-	Fecha Fec;
-	char Detalle[381];
-};
+
