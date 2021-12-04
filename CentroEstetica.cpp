@@ -2,26 +2,24 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
-
-void Espacios()
-{
-	
-}
-void Recepcion()
-{
-	
-}
-void Administracion()
-{
-	
-}
-
-/* Estas funciones solo estan para que el programa no de errores
-una vez que incorporemos las librerias eliminaremos las funciones */
+#include "estructuras.h"
+#include "moduloespacios.h"
+#include "modulorecepcionista.h"
+#include "moduloadministracion.h"
 
 main()
 {
 	int op;
+	FILE *arch,*arch1,*arch2,*arch3;
+	//Datos de cuentas de usuario
+	arch=fopen("Recepcionista.dat","a+b");
+	arch1=fopen("Profesionales.dat","a+b");
+	arch2=fopen("Clientes.dat","a+b");
+	arch3=fopen("Turnos.dat","a+b");
+	fclose(arch);
+	fclose(arch1);
+	fclose(arch2);
+	fclose(arch3);
 	
 	do
 	{
